@@ -2,9 +2,17 @@
 (async()=>{
  const status=document.getElementById('status');
  try{
-  const parts=await Promise.all(['00','01','02','03','04'].map(n=>fetch(`.bootstrap/part-${n}`).then(r=>{if(!r.ok)throw new Error(`release part ${n}`);return r.text()})));
+  const parts=[];
+  for(const n of ['00','01','02','03','04']){
+   status.textContent=`Loading campaign package ${n}…`;
+   const url=new URL(`release/part-${n}`,location.href);
+   const r=await fetch(url,{cache:'no-store'});
+   if(!r.ok)throw new Error(`release part ${n} returned HTTP ${r.status}`);
+   parts.push(await r.text());
+  }
   const b64=parts.join('').replace(/\s/g,'');
   const raw=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
+  if(typeof DecompressionStream==='undefined')throw new Error('this browser does not support gzip decompression');
   const stream=new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'));
   const tar=new Uint8Array(await new Response(stream).arrayBuffer());
   const files=new Map(); const td=new TextDecoder();
