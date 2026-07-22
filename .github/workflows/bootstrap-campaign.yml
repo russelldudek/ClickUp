@@ -1,4 +1,4 @@
-name: Publish complete candidate campaign
+name: Diagnose and publish complete candidate campaign
 
 on:
   pull_request:
@@ -19,28 +19,29 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Expand complete campaign package
+      - name: Diagnose staged release
         shell: bash
         run: |
-          set -euo pipefail
-          cat release/part-* | base64 --decode > /tmp/clickup-release.tar.gz
+          set +e
+          : > publication-diagnostic.txt
+          echo "main=$(git rev-parse HEAD)" >> publication-diagnostic.txt
+          ls -l release >> publication-diagnostic.txt 2>&1
+          cat release/part-* | base64 --decode > /tmp/clickup-release.tar.gz 2>> publication-diagnostic.txt
+          echo "decode_exit=$?" >> publication-diagnostic.txt
+          ls -l /tmp/clickup-release.tar.gz >> publication-diagnostic.txt 2>&1
+          tar -tzf /tmp/clickup-release.tar.gz | head -80 >> publication-diagnostic.txt 2>&1
+          echo "list_exit=${PIPESTATUS[0]}" >> publication-diagnostic.txt
+          rm -rf /tmp/clickup-release
           mkdir -p /tmp/clickup-release
-          tar -xzf /tmp/clickup-release.tar.gz -C /tmp/clickup-release
-          index_path="$(find /tmp/clickup-release -type f -name index.html -print -quit)"
-          test -n "$index_path"
-          release_root="$(dirname "$index_path")"
-          cp -a "$release_root"/. ./
-          touch .nojekyll
-      - name: Commit complete campaign to main
+          tar -xzf /tmp/clickup-release.tar.gz -C /tmp/clickup-release >> publication-diagnostic.txt 2>&1
+          echo "extract_exit=$?" >> publication-diagnostic.txt
+          find /tmp/clickup-release -maxdepth 4 -type f -printf '%P\n' | sort | head -120 >> publication-diagnostic.txt
+      - name: Commit diagnostic receipt
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No publication changes found."
-            exit 0
-          fi
-          git commit -m "Publish complete ClickUp campaign documents"
+          git add publication-diagnostic.txt
+          git commit -m "Record ClickUp publication diagnostic" || true
           git push origin HEAD:main
