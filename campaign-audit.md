@@ -18,7 +18,7 @@
 ## Local quality gates
 - Readable artifact manifest: passed.
 - Brand intelligence and token provenance: passed.
-- Visible company identity: passed using a documented typeset fallback because the current official asset endpoint could not be retrieved reliably for local commitment.
+- Visible company identity: corrected to the official current ClickUp full-lockup SVG, locally committed and used above the fold with an immediate independent-candidate qualifier.
 - Independent-candidate distinction: passed.
 - Visual experience and full-page pacing: passed by rendered inspection.
 - Signature role-derived motion: passed.
@@ -43,3 +43,10 @@
 
 ## Publication gate
 The complete readable source and generated PDFs are ready for the dedicated public ClickUp candidate-campaign repository. Final completion requires verification of the exact `main` files and the live repository-named Pages deployment. The final audited head and live receipt will be recorded after publication.
+
+## Official-logo correction regression
+- Observed defect: the hero used a code-recreated ClickUp wordmark that looked invented.
+- Approved correction: official unmodified full-lockup SVG from ClickUp’s current brand page.
+- Regression assertion: `index.html` must reference `assets/brand/clickup-logo.svg`; custom `.company-name` pseudo-wordmark markup and styling must be absent; the local SVG must parse and retain a viewBox.
+- Affected surface: candidate-vision homepage hero.
+- Prior brand-fidelity proof: invalidated until corrected source and live asset delivery are reverified.

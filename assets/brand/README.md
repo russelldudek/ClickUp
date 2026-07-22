@@ -1,3 +1,9 @@
-# Brand Asset Note
+# ClickUp Brand Asset
 
-Official current logo asset URLs were identified on ClickUp's brand page, but vector bytes could not be retrieved by the build environment. The campaign therefore does not contain or hotlink an official logo and does not trace or recreate it. A typeset company name is used for nominative identification with explicit independence and trademark statements. See `brand-intelligence.md`.
+## Official full lockup
+- Local file: `clickup-logo.svg`
+- Official source: https://clickup.com/assets/brand/v4/Logo-gradient-on-light.svg
+- Brand guide: https://clickup.com/brand
+- Retrieved by the campaign publication workflow without modification.
+- Visible use: candidate-vision hero on a light background with preserved proportions and clear space.
+- The adjacent copy identifies this as an independent candidate vision by Russell Dudek.

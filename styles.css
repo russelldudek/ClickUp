@@ -12,7 +12,7 @@ img{max-width:100%}
 .hero{overflow:hidden;position:relative;padding:82px 24px 72px;background:radial-gradient(circle at 85% 20%,rgba(102,71,240,.12),transparent 31%),radial-gradient(circle at 12% 70%,rgba(255,2,240,.08),transparent 28%),#fff}
 .hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(102,71,240,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(102,71,240,.045) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,#000,transparent 85%);pointer-events:none}
 .hero-grid{position:relative;max-width:var(--max);margin:auto;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(430px,.95fr);gap:64px;align-items:center}
-.company-lockup{display:flex;align-items:center;gap:16px;margin-bottom:38px}.company-name{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:1.55rem;font-weight:850;letter-spacing:-.06em;padding-right:17px;border-right:1px solid var(--line)}.company-name .up{background:var(--gradient-brand);-webkit-background-clip:text;background-clip:text;color:transparent}.lockup-copy{font-size:.72rem;line-height:1.42;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);font-weight:760}
+.company-lockup{display:flex;align-items:center;gap:18px;margin-bottom:38px}.company-logo-wrap{display:flex;align-items:center;padding-right:20px;border-right:1px solid var(--line)}.company-logo{display:block;width:164px;height:auto;max-width:none}.lockup-copy{font-size:.72rem;line-height:1.42;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);font-weight:760}
 .eyebrow{font-family:"Sometype Mono",ui-monospace,SFMono-Regular,Consolas,monospace;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;font-weight:760;color:var(--clickup-purple)}
 h1,h2,h3{font-family:"Plus Jakarta Sans",Inter,sans-serif;letter-spacing:-.055em;line-height:1.05;margin:0}
 h1{font-size:clamp(3.5rem,7vw,6.65rem);max-width:760px;margin:14px 0 24px}h1 em{font-style:normal;background:var(--gradient-brand);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -72,3 +72,5 @@ h1{font-size:clamp(3.5rem,7vw,6.65rem);max-width:760px;margin:14px 0 24px}h1 em{
 .company-name .up,h1 em{background:none!important;color:var(--clickup-purple)!important;-webkit-text-fill-color:var(--clickup-purple)!important}
 h1{font-size:clamp(3.45rem,6vw,5.55rem)}
 @media (max-width:480px){h1{font-size:2.9rem;line-height:1.02}.company-name{font-size:1.27rem}}
+
+@media(max-width:420px){.company-lockup{gap:13px}.company-logo-wrap{padding-right:13px}.company-logo{width:138px}.lockup-copy{font-size:.64rem;letter-spacing:.09em}}

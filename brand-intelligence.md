@@ -10,7 +10,7 @@
 - Press: https://clickup.com/press
 
 ## Identity decision
-The official brand page exposes current logo asset URLs, including `Logo-gradient-on-light.svg` and `Logomark-gradient.svg`. The campaign build environment could identify but could not retrieve the vector bytes from ClickUp's asset host. Because the brand rules prohibit tracing or recreating the mark, the campaign uses a clearly typeset `ClickUp™` name as nominative identification rather than a pseudo-logo. It appears with an immediate independent-candidate qualifier and the required non-endorsement/trademark statements. No official mark is hotlinked, redrawn, recolored, cropped, or animated.
+The hero uses ClickUp's current official full-lockup SVG from `https://clickup.com/assets/brand/v4/Logo-gradient-on-light.svg`, downloaded without modification and committed locally as `assets/brand/clickup-logo.svg`. It appears with an immediate independent-candidate qualifier and the required non-endorsement/trademark statements. The mark is not traced, redrawn, recolored, cropped, stretched, animated, or combined into a candidate-created logo.
 
 ## Color provenance
 - `#FF02F0` — official ClickUp core gradient endpoint.
@@ -32,7 +32,7 @@ ClickUp's official brand page identifies Plus Jakarta Sans for headlines, Inter 
 ClickUp's public product language is fast and fluid. The campaign translates that character into one-shot clause assembly with a stable committed state. Motion explains closure and does not loop continuously. Reduced-motion users receive the fully resolved state immediately.
 
 ## Surface plan
-- Website: fullest brand expression, typeset company reference, official color accents, independent candidate qualifier.
+- Website: official current full-lockup SVG above the fold, official color accents, and an immediate independent-candidate qualifier.
 - Resume and cover letter: restrained top gradient rule, Plus Jakarta-like hierarchy, ClickUp role line, no fake company letterhead.
 - Brief, plan, and review: shared rules, mono labels, role-state tables, and independent-candidate context.
 - PDFs: same authoritative HTML content and print CSS.
