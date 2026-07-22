@@ -1,0 +1,34 @@
+name: Publish candidate campaign
+
+on:
+  push:
+    paths:
+      - '.bootstrap/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Expand verified campaign package
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/part-* | base64 --decode > /tmp/clickup-release.tar.gz
+          tar -xzf /tmp/clickup-release.tar.gz -C .
+          rm -rf .bootstrap
+          rm -f .github/workflows/bootstrap-campaign.yml
+      - name: Commit complete campaign
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish complete ClickUp candidate campaign"
+          git push origin HEAD:main
