@@ -1,0 +1,23 @@
+:root {
+  --clickup-pink: #ff02f0; /* official */
+  --clickup-orange: #fc6d2d; /* official */
+  --clickup-purple: #6647f0; /* official */
+  --clickup-blue: #0091ff; /* official */
+  --ink: #11101a;
+  --ink-soft: #423f53;
+  --paper: #ffffff;
+  --paper-alt: #f7f6fb;
+  --line: #dedbe9;
+  --line-strong: #b9b2cc;
+  --success: #157f68; /* candidate-original, role-state */
+  --warning: #a24f14; /* candidate-original, role-state */
+  --danger: #a53652; /* candidate-original, role-state */
+  --gradient-warm: linear-gradient(110deg, var(--clickup-pink), var(--clickup-orange));
+  --gradient-cool: linear-gradient(110deg, var(--clickup-purple), var(--clickup-blue));
+  --gradient-brand: linear-gradient(110deg, var(--clickup-pink) 0%, var(--clickup-purple) 48%, var(--clickup-blue) 100%);
+  --shadow: 0 22px 70px rgba(43, 30, 89, .12);
+  --radius-xl: 32px;
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --max: 1180px;
+}
