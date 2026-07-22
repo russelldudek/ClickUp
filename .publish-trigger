@@ -1,2 +1,2 @@
 Publish the complete verified ClickUp campaign document set from the staged release payload.
-Retry: archive-root agnostic publisher.
+Retry: copy complete archive root before repository validation.
