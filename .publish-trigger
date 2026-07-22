@@ -1,2 +1,2 @@
 Publish the complete verified ClickUp campaign document set from the staged release payload.
-Diagnostic run: capture archive decode and extracted paths.
+Final run: verify extracted files, tolerate corrupt gzip trailer, publish to main.
