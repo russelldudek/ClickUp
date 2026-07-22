@@ -1,0 +1,63 @@
+main=f7e6ed255e5473ca2601454b1a95dddf04fb9ea3
+total 68
+-rw-r--r-- 1 runner runner  6000 Jul 22 05:12 part-00
+-rw-r--r-- 1 runner runner  6000 Jul 22 05:12 part-01
+-rw-r--r-- 1 runner runner 18000 Jul 22 05:12 part-02
+-rw-r--r-- 1 runner runner 18000 Jul 22 05:12 part-03
+-rw-r--r-- 1 runner runner  9860 Jul 22 05:12 part-04
+decode_exit=0
+-rw-r--r-- 1 runner runner 43395 Jul 22 05:12 /tmp/clickup-release.tar.gz
+./
+./campaign-audit.md
+./assets/
+./assets/brand/
+./assets/brand/README.md
+./90-day-plan.html
+./.nojekyll
+./brand-tokens.css
+./styles.css
+./role-intelligence.md
+./sources.md
+./resume.html
+./brand-intelligence.md
+./docs/
+./docs/Russell-Dudek-ClickUp-Chief-of-Staff-Cover-Letter.pdf
+./docs/Russell-Dudek-ClickUp-Interview-Thesis-Brief.pdf
+./docs/Russell-Dudek-ClickUp-Chief-of-Staff-Resume.pdf
+./docs/Russell-Dudek-ClickUp-Executive-Commit-Review.pdf
+./docs/Russell-Dudek-ClickUp-90-Day-Entry-Plan.pdf
+./README.md
+./executive-commit.html
+./app.js
+./interview-brief.html
+./evidence-map.md
+./index.html
+./cover-letter.html
+list_exit=2
+
+gzip: stdin: invalid compressed data--crc error
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
+extract_exit=2
+.nojekyll
+90-day-plan.html
+README.md
+app.js
+assets/brand/README.md
+brand-intelligence.md
+brand-tokens.css
+campaign-audit.md
+cover-letter.html
+docs/Russell-Dudek-ClickUp-90-Day-Entry-Plan.pdf
+docs/Russell-Dudek-ClickUp-Chief-of-Staff-Cover-Letter.pdf
+docs/Russell-Dudek-ClickUp-Chief-of-Staff-Resume.pdf
+docs/Russell-Dudek-ClickUp-Executive-Commit-Review.pdf
+docs/Russell-Dudek-ClickUp-Interview-Thesis-Brief.pdf
+evidence-map.md
+executive-commit.html
+index.html
+interview-brief.html
+resume.html
+role-intelligence.md
+sources.md
+styles.css
