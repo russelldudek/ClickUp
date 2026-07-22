@@ -1,37 +1,70 @@
-name: Publish candidate campaign
+name: Publish complete candidate campaign
 
 on:
-  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
     paths:
-      - '.bootstrap/READY'
-  issues:
-    types: [opened]
+      - '.publish-trigger'
 
 permissions:
   contents: write
 
 jobs:
   publish:
-    if: github.event_name == 'push' || github.event.issue.title == 'Publish candidate campaign'
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out main
+        uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
       - name: Expand verified campaign package
         shell: bash
         run: |
           set -euo pipefail
-          cat .bootstrap/part-* | base64 --decode > /tmp/clickup-release.tar.gz
-          tar -xzf /tmp/clickup-release.tar.gz -C .
-          rm -rf .bootstrap
-          rm -f .github/workflows/bootstrap-campaign.yml
-      - name: Commit complete campaign
+          test -f release/part-00
+          cat release/part-* | base64 --decode > /tmp/clickup-release.tar.gz
+          mkdir -p /tmp/clickup-release
+          tar -xzf /tmp/clickup-release.tar.gz -C /tmp/clickup-release
+          test -f /tmp/clickup-release/resume.html
+          test -f /tmp/clickup-release/cover-letter.html
+          test -f /tmp/clickup-release/90-day-plan.html
+          test -f /tmp/clickup-release/docs/Russell-Dudek-ClickUp-Chief-of-Staff-Resume.pdf
+          test -f /tmp/clickup-release/docs/Russell-Dudek-ClickUp-Chief-of-Staff-Cover-Letter.pdf
+          test -f /tmp/clickup-release/docs/Russell-Dudek-ClickUp-90-Day-Entry-Plan.pdf
+          rsync -a --delete --exclude='.git' --exclude='.github' /tmp/clickup-release/ ./
+          touch .nojekyll
+      - name: Verify document contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          for path in \
+            resume.html \
+            cover-letter.html \
+            90-day-plan.html \
+            interview-brief.html \
+            executive-commit.html \
+            docs/Russell-Dudek-ClickUp-Chief-of-Staff-Resume.pdf \
+            docs/Russell-Dudek-ClickUp-Chief-of-Staff-Cover-Letter.pdf \
+            docs/Russell-Dudek-ClickUp-90-Day-Entry-Plan.pdf \
+            docs/Russell-Dudek-ClickUp-Interview-Thesis-Brief.pdf \
+            docs/Russell-Dudek-ClickUp-Executive-Commit-Review.pdf; do
+            test -s "$path"
+          done
+          grep -q 'docs/Russell-Dudek-ClickUp-Chief-of-Staff-Resume.pdf' resume.html
+          grep -q 'docs/Russell-Dudek-ClickUp-Chief-of-Staff-Cover-Letter.pdf' cover-letter.html
+          grep -q 'docs/Russell-Dudek-ClickUp-90-Day-Entry-Plan.pdf' 90-day-plan.html
+      - name: Commit complete campaign to main
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Publish complete ClickUp candidate campaign"
+          if git diff --cached --quiet; then
+            echo "Complete campaign already published."
+            exit 0
+          fi
+          git commit -m "Publish complete ClickUp campaign documents"
           git push origin HEAD:main
