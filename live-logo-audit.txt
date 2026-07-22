@@ -1,0 +1,8 @@
+Audited main head: 32018c9247d4ce9ebd86a3f6139603a0b84485cc
+Live site: https://russelldudek.github.io/ClickUp/
+Official logo route: https://russelldudek.github.io/ClickUp/assets/brand/clickup-logo.svg
+Local asset SHA-256: bdf8298c01f31ead369557b139b477047db4b4ce9c7703d2aab73a43659964f5
+Live asset SHA-256: bdf8298c01f31ead369557b139b477047db4b4ce9c7703d2aab73a43659964f5
+Homepage references local official logo: passed
+Custom pseudo-wordmark absent: passed
+Live asset byte equality: passed

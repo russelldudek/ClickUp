@@ -49,4 +49,15 @@ The complete readable source and generated PDFs are ready for the dedicated publ
 - Approved correction: official unmodified full-lockup SVG from ClickUp’s current brand page.
 - Regression assertion: `index.html` must reference `assets/brand/clickup-logo.svg`; custom `.company-name` pseudo-wordmark markup and styling must be absent; the local SVG must parse and retain a viewBox.
 - Affected surface: candidate-vision homepage hero.
-- Prior brand-fidelity proof: invalidated until corrected source and live asset delivery are reverified.
+- Corrected source and live asset delivery: reverified; the public SVG is byte-identical to the official asset committed on `main`.
+
+## Official-logo live verification
+Audited main head: 32018c9247d4ce9ebd86a3f6139603a0b84485cc
+Live site: https://russelldudek.github.io/ClickUp/
+Official logo route: https://russelldudek.github.io/ClickUp/assets/brand/clickup-logo.svg
+Local asset SHA-256: bdf8298c01f31ead369557b139b477047db4b4ce9c7703d2aab73a43659964f5
+Live asset SHA-256: bdf8298c01f31ead369557b139b477047db4b4ce9c7703d2aab73a43659964f5
+Homepage references local official logo: passed
+Custom pseudo-wordmark absent: passed
+Live asset byte equality: passed
+
