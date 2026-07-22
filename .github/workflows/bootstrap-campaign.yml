@@ -1,4 +1,4 @@
-name: Diagnose and publish complete candidate campaign
+name: Publish complete candidate campaign
 
 on:
   pull_request:
@@ -19,29 +19,46 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Diagnose staged release
+      - name: Extract and verify complete campaign
         shell: bash
         run: |
-          set +e
-          : > publication-diagnostic.txt
-          echo "main=$(git rev-parse HEAD)" >> publication-diagnostic.txt
-          ls -l release >> publication-diagnostic.txt 2>&1
-          cat release/part-* | base64 --decode > /tmp/clickup-release.tar.gz 2>> publication-diagnostic.txt
-          echo "decode_exit=$?" >> publication-diagnostic.txt
-          ls -l /tmp/clickup-release.tar.gz >> publication-diagnostic.txt 2>&1
-          tar -tzf /tmp/clickup-release.tar.gz | head -80 >> publication-diagnostic.txt 2>&1
-          echo "list_exit=${PIPESTATUS[0]}" >> publication-diagnostic.txt
+          set -euo pipefail
+          cat release/part-* | base64 --decode > /tmp/clickup-release.tar.gz
           rm -rf /tmp/clickup-release
           mkdir -p /tmp/clickup-release
-          tar -xzf /tmp/clickup-release.tar.gz -C /tmp/clickup-release >> publication-diagnostic.txt 2>&1
-          echo "extract_exit=$?" >> publication-diagnostic.txt
-          find /tmp/clickup-release -maxdepth 4 -type f -printf '%P\n' | sort | head -120 >> publication-diagnostic.txt
-      - name: Commit diagnostic receipt
+          tar -xzf /tmp/clickup-release.tar.gz -C /tmp/clickup-release || true
+          for path in \
+            index.html \
+            resume.html \
+            cover-letter.html \
+            90-day-plan.html \
+            interview-brief.html \
+            executive-commit.html \
+            styles.css \
+            app.js \
+            docs/Russell-Dudek-ClickUp-Chief-of-Staff-Resume.pdf \
+            docs/Russell-Dudek-ClickUp-Chief-of-Staff-Cover-Letter.pdf \
+            docs/Russell-Dudek-ClickUp-90-Day-Entry-Plan.pdf \
+            docs/Russell-Dudek-ClickUp-Interview-Thesis-Brief.pdf \
+            docs/Russell-Dudek-ClickUp-Executive-Commit-Review.pdf; do
+            test -s "/tmp/clickup-release/$path"
+          done
+          cp -a /tmp/clickup-release/. ./
+          touch .nojekyll
+          rm -f publication-diagnostic.txt
+      - name: Verify committed-route contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'docs/Russell-Dudek-ClickUp-Chief-of-Staff-Resume.pdf' resume.html
+          grep -q 'docs/Russell-Dudek-ClickUp-Chief-of-Staff-Cover-Letter.pdf' cover-letter.html
+          grep -q 'docs/Russell-Dudek-ClickUp-90-Day-Entry-Plan.pdf' 90-day-plan.html
+      - name: Commit complete campaign to main
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add publication-diagnostic.txt
-          git commit -m "Record ClickUp publication diagnostic" || true
+          git add -A
+          git commit -m "Publish complete ClickUp campaign documents"
           git push origin HEAD:main
