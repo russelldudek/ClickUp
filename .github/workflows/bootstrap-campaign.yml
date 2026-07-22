@@ -4,12 +4,15 @@ on:
   push:
     paths:
       - '.bootstrap/READY'
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
 
 jobs:
   publish:
+    if: github.event_name == 'push' || github.event.issue.title == 'Publish candidate campaign'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
