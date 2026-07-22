@@ -27,19 +27,22 @@ jobs:
           cat release/part-* | base64 --decode > /tmp/clickup-release.tar.gz
           mkdir -p /tmp/clickup-release
           tar -xzf /tmp/clickup-release.tar.gz -C /tmp/clickup-release
-          test -f /tmp/clickup-release/resume.html
-          test -f /tmp/clickup-release/cover-letter.html
-          test -f /tmp/clickup-release/90-day-plan.html
-          test -f /tmp/clickup-release/docs/Russell-Dudek-ClickUp-Chief-of-Staff-Resume.pdf
-          test -f /tmp/clickup-release/docs/Russell-Dudek-ClickUp-Chief-of-Staff-Cover-Letter.pdf
-          test -f /tmp/clickup-release/docs/Russell-Dudek-ClickUp-90-Day-Entry-Plan.pdf
-          rsync -a --delete --exclude='.git' --exclude='.github' /tmp/clickup-release/ ./
+          release_root="$(dirname "$(find /tmp/clickup-release -type f -name resume.html -print -quit)")"
+          test -n "$release_root"
+          test -f "$release_root/resume.html"
+          test -f "$release_root/cover-letter.html"
+          test -f "$release_root/90-day-plan.html"
+          test -f "$release_root/docs/Russell-Dudek-ClickUp-Chief-of-Staff-Resume.pdf"
+          test -f "$release_root/docs/Russell-Dudek-ClickUp-Chief-of-Staff-Cover-Letter.pdf"
+          test -f "$release_root/docs/Russell-Dudek-ClickUp-90-Day-Entry-Plan.pdf"
+          rsync -a --delete --exclude='.git' --exclude='.github' "$release_root/" ./
           touch .nojekyll
       - name: Verify document contracts
         shell: bash
         run: |
           set -euo pipefail
           for path in \
+            index.html \
             resume.html \
             cover-letter.html \
             90-day-plan.html \
